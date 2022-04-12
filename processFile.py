@@ -30,7 +30,7 @@ def createMongoObject(row):
     jsonObj = {
         "sgv": 39 if row['Glucose Value (mmol/L)'] == 'Low' else mmolToGrams(row['Glucose Value (mmol/L)']),
         "date": 0,
-        "dateString": stringToNewDate(row['Timestamp']),
+        "dateString": stringToNewDate(row['Timestamp (YYYY-MM-DDThh:mm:ss)']),
         "trend": 8,
         "direction": "Flat",
         "device": "share2",

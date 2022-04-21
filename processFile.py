@@ -199,12 +199,12 @@ async def insertMissingMongo(inputRow):
     logger.info('Record inserted with ID: {}'.format(rec_id))
 
 if __name__ == '__main__':
-    inputClarityFile = 'clarity_20220419'
-    # minD, maxD = getStartEndFromCsv(inputClarityFile)
-    # logger.info("{} - {}".format(minD, maxD))
-    # loop = asyncio.get_event_loop()
-    # newArr = loop.run_until_complete(getRecordsByMinMaxDate(minD, maxD))
-    # jsonToCsv(newArr, inputClarityFile)
-    # generateUtFile(inputClarityFile)
-    # generateMissingData(inputClarityFile)
+    inputClarityFile = 'clarity_20220421'
+    minD, maxD = getStartEndFromCsv(inputClarityFile)
+    logger.info("{} - {}".format(minD, maxD))
+    loop = asyncio.get_event_loop()
+    newArr = loop.run_until_complete(getRecordsByMinMaxDate(minD, maxD))
+    jsonToCsv(newArr, inputClarityFile)
+    generateUtFile(inputClarityFile)
+    generateMissingData(inputClarityFile)
     insertMongoMissingData(inputClarityFile)

@@ -1,20 +1,19 @@
-import os
-import csv
-import json
-import pytz
-from logzero import logger
-import motor.motor_asyncio
 import asyncio
+import csv
+import os
 from datetime import datetime, timedelta
 
+import motor.motor_asyncio
+import pytz
+from logzero import logger
 
 local_tz = pytz.timezone("Europe/London")
 
 
-try:
-    to_unicode = unicode
-except NameError:
-    to_unicode = str
+# try:
+#     to_unicode = unicode
+# except NameError:
+#     to_unicode = str
 
 
 def getMongoReadDb():
@@ -65,7 +64,7 @@ def getStartEndFromCsv(inputClarityFileName):
         minDate = ""
         maxDate = ""
         currDate = ""
-        i = 0
+        # i = 0
         for row in reader:
             currDate = row["Timestamp (YYYY-MM-DDThh:mm:ss)"]
             # print('Working on : {}'.format(currDate))
@@ -178,12 +177,13 @@ def generateMissingData(inputClarityFileName):
             with open(inputClarityFileName + "-mongo.csv", "r") as mongoFile:
                 mongo_reader = csv.reader(mongoFile)
                 __ = next(mongo_reader)
+                print(__)
                 for m_row in mongo_reader:
                     if c_row[14] == m_row[3]:
                         # logger.info('{} - {} - {} - {} - {}'.format(c_row[14],c_row[7],m_row[1],float(m_row[1])/float(c_row[7]),round(float(c_row[7])*18,0)))
                         m_found = True
                         break
-            if m_found == False:
+            if m_found is False:
                 logger.info(c_row)
                 output_writer.writerow(c_row)
             else:
@@ -195,6 +195,7 @@ def insertMongoMissingData(inputClarityFileName):
     with open(inputClarityFileName + "-missing.csv", "r") as inputFile:
         reader = csv.reader(inputFile)
         __ = next(reader)
+        print(__)
         for row in reader:
             mongoObj = createMongoObject(row)
             logger.info(mongoObj)

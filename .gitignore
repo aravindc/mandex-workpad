@@ -1,2 +1,3 @@
 *.csv
 processed/mongoData.json
+work_dex.py
